@@ -15,6 +15,8 @@ const App = () => {
     const [type,setType] = useState('restaurants');
     const [rating,setRating] = useState('');
     // const [event, setEvent] = useState()
+    const [autocomplete,setAutocomplete] = useState(null)
+    
 
     // useEffect(()=>{
     //     navigator.geolocation.getCurrentPosition(({ coords: {latitude, longitude} }) => {
@@ -31,10 +33,19 @@ const App = () => {
                 setIsLoading(false)
             })
     }, [type,coordinates, bounds]);
+    const onLoad = (autoC) => setAutocomplete(autoC);
+
+    const onPlaceChanged = () => {
+        const lat = autocomplete.getPlace().geometry.location.lat();
+        const lng = autocomplete.getPlace().geometry.location.lng();
+
+        setCoordinates({ lat, lng });
+    };
+
     return (
         <>
             <CssBaseline/>
-            <Header />
+            <Header onPlaceChanged={onPlaceChanged} onLoad={onLoad} />
             <Grid container spacing={3} style={{width: '100%'}}>
                 <Grid item xs={12} md={4}>
                     <List

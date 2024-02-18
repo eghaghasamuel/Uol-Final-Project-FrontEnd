@@ -4,6 +4,8 @@ import {getPlacesData} from './api'
 import Header from "./components/Header/Header";
 import Map from "./components/Map/Map";
 import List from "./components/List/List";
+import Itinerary from "./components/Itinerary/Itinerary";
+
 
 
 const App = () => {
@@ -14,6 +16,7 @@ const App = () => {
     const [isLoading,setIsLoading] = useState(false)
     const [type,setType] = useState('restaurants');
     const [rating,setRating] = useState('');
+    
     // const [event, setEvent] = useState()
     const [autocomplete,setAutocomplete] = useState(null)
     
@@ -56,6 +59,17 @@ const App = () => {
                         setType = {setType}
                         rating={rating}
                         setRating={setRating}
+                        list={true}
+                    />
+                    <Itinerary
+                        places={places}
+                        childClicked={childClicked}
+                        isLoading={isLoading}
+                        type={type}
+                        setType = {setType}
+                        rating={rating}
+                        setRating={setRating}
+                        list={false}
                     />
                 </Grid>
                 <Grid item xs={12} md={8}>

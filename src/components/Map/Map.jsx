@@ -28,7 +28,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
 
                 onChildClick={(child) => setChildClicked(child)}
             >
-                {places?.length && places?.map((place, i) => (
+                {/* {places?.length && places?.map((place, i) => (
             <div
                 className={classes.markerContainer}
                 lat={Number(place.latitude)}
@@ -48,7 +48,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
                     </Paper>
                 )}
             </div>
-            ))}
+            ))} */}
                 {/* {places?.map((place, i)=>{
                     
                     <div

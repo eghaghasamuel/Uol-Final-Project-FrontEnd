@@ -4,7 +4,7 @@ import useStyles from "./style"
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
 
-const List = ({places, childClicked, isLoading,type,setType, rating, setRating}) => {
+const List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,setAddPlace}) => {
 
     const [elRefs, setElRefs] = useState([]);
     const classes = useStyles();
@@ -12,17 +12,12 @@ const List = ({places, childClicked, isLoading,type,setType, rating, setRating})
     useEffect(() => {
         setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
     }, [places]);
-    console.log(childClicked)
-    // const places =[
-    //     {name:'Cool PLace'},
-    //     {name:'Best Beer'},
-    //     {name:'Best Stake'},
-    //     {name:'Cool PLace'},
-    //     {name:'Best Beer'},
-    //     {name:'Best Stake'}]
+    // console.log(childClicked)
+
     return (
+        
         <div className={classes.container}>
-            <Typography variant="h4">Food Glorious Food</Typography>
+            <Typography variant="h4">Travely</Typography>
             {isLoading ? (
         <div className={classes.loading}>
           <CircularProgress size="5rem" />
@@ -33,7 +28,6 @@ const List = ({places, childClicked, isLoading,type,setType, rating, setRating})
                 <InputLabel>Type</InputLabel>
                 <Select value={type} onChange={(e)=> setType(e.target.value)}>
                     <MenuItem value="restaurants">Restaurants</MenuItem>
-                    <MenuItem value="hotels">Hotels</MenuItem>
                     <MenuItem value="attractions">Attractions</MenuItem>
 
                 </Select>
@@ -49,14 +43,15 @@ const List = ({places, childClicked, isLoading,type,setType, rating, setRating})
 
                 </Select>
             </FormControl>
-            <Grid container spacing={3} className={classes.list}>
+            <Grid container spacing={3} className={classes.list} wrap='nowrap'>
                 {places?.map((place, i)=>(
                     
                     <Grid ref={elRefs[i]} key={i} item xs={12}>
-                        <PlaceDetails selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} />
+                        <PlaceDetails list={list} selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} setAddPlace={setAddPlace} />
                     </Grid>
                 )) }
             </Grid>
+            
             </>
       )}
         </div>

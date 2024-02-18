@@ -19,13 +19,16 @@ export default makeStyles((theme) => ({
     height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center',
   },
   container: {
-    padding: '25px',
+    padding: '10px',
+  },
+  toggleBtn: {
+    width: "100%",
   },
   marginBottom: {
     marginBottom: '30px',
   },
   list: {
-    height: '30vh', overflow: 'auto', display: 'flex', flexDirection: 'row',
+     overflow: 'auto', display: 'flex', flexDirection: 'row',
   },
   title: {
     display: 'none',

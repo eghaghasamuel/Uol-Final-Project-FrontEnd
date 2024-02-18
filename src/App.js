@@ -4,7 +4,7 @@ import {getPlacesData} from './api'
 import Header from "./components/Header/Header";
 import Map from "./components/Map/Map";
 import List from "./components/List/List";
-import Itinerary from "./components/Itinerary/Itinerary";
+import Itinerary_List from "./components/Itinerary_list/Itinerary_List";
 
 
 
@@ -16,6 +16,7 @@ const App = () => {
     const [isLoading,setIsLoading] = useState(false)
     const [type,setType] = useState('restaurants');
     const [rating,setRating] = useState('');
+    const [listItinerary,setlistItinerary] = useState([])
     
     // const [event, setEvent] = useState()
     const [autocomplete,setAutocomplete] = useState(null)
@@ -61,7 +62,7 @@ const App = () => {
                         setRating={setRating}
                         list={true}
                     />
-                    <Itinerary
+                    <Itinerary_List
                         places={places}
                         childClicked={childClicked}
                         isLoading={isLoading}

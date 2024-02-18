@@ -7,15 +7,29 @@ import SearchIcon from '@material-ui/icons/Search';
 import Step from '../Step/Step'
 import Selection from "../Selection/Selection";
 
+
 const Itinerary = ({places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad}) => {
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
+    const [isElementVisible, setElementVisibility] = useState(false);
+
+    const handleToggle = () => {
+      setElementVisibility(!isElementVisible);
+    };
     const classes = useStyles();
 
     useEffect(() => {
         setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
     }, [places]);
+
+    const remove = (index) => {
+      setAddPlace((current) =>
+        current.filter(
+          (place) => !(place.location_id === index)
+        )
+      );
+    };
 
     console.log(addPlace)
     // let selectedPlaces = [];
@@ -23,8 +37,30 @@ const Itinerary = ({places, childClicked, isLoading,type,setType, rating, setRat
     // console.log(selectedPlaces)
     return (
         <div className={classes.container}>
-
-            <Selection
+           
+            {isLoading ? (
+        <div className={classes.loading}>
+          <CircularProgress size="5rem" />
+        </div>
+      ) : (
+        <>
+            <Button onClick={handleToggle} className={classes.toggleBtn}>
+            ciao
+            </Button>
+            <Grid container className={classes.list} >
+            
+                {isElementVisible && addPlace?.map((place, i)=>(
+                    // <p>CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> </p>
+                    
+                    <Grid ref={elRefs[i]} key={i} item xs={12}>
+                        <Step selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} deleteItem={remove}/>
+                    </Grid>
+                )) }
+            </Grid>
+            </>
+      )}
+      <br/><br/>
+       <Selection
                 places={places}
                 childClicked={childClicked}
                 isLoading={isLoading}
@@ -34,34 +70,6 @@ const Itinerary = ({places, childClicked, isLoading,type,setType, rating, setRat
                 setRating={setRating}
                 setAddPlace={setAddPlace}
             />
-            
-          
-            {isLoading ? (
-        <div className={classes.loading}>
-          <CircularProgress size="5rem" />
-        </div>
-      ) : (
-        <>
-        {/* <Autocomplete onLoad={onLoad}  >
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase placeholder="Search…" classes={{ root: classes.inputRoot, input: classes.inputInput }} />
-            </div>
-          </Autocomplete> */}
-          {/* <br></br> */}
-            <Grid container spacing={3} className={classes.list} >
-            
-                {addPlace?.map((place, i)=>(
-                    
-                    <Grid ref={elRefs[i]} key={i} item xs={12}>
-                        <Step selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} />
-                    </Grid>
-                )) }
-            </Grid>
-            </>
-      )}
         </div>
     );
 }

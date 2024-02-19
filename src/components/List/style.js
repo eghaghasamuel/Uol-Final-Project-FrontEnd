@@ -17,6 +17,6 @@ export default makeStyles((theme) => ({
     marginBottom: '30px',
   },
   list: {
-    height: '10vh', overflow: 'auto', display: 'flex', flexDirection: 'row',
+    height: '20vh', overflow: 'auto', display: 'flex', flexDirection: 'row',
   },
 }));

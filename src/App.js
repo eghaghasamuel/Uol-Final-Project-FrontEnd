@@ -16,7 +16,7 @@ const App = () => {
     const [isLoading,setIsLoading] = useState(false)
     const [type,setType] = useState('restaurants');
     const [rating,setRating] = useState('');
-    const [listItinerary,setlistItinerary] = useState([])
+    const [listItinerary,setlistItinerary] = useState(["GIORNO 1","GIORNO 2"])
     
     // const [event, setEvent] = useState()
     const [autocomplete,setAutocomplete] = useState(null)
@@ -71,6 +71,7 @@ const App = () => {
                         rating={rating}
                         setRating={setRating}
                         list={false}
+                        listItinerary={listItinerary}
                     />
                 </Grid>
                 <Grid item xs={12} md={8}>

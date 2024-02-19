@@ -8,7 +8,7 @@ import Step from '../Step/Step'
 import Selection from "../Selection/Selection";
 
 
-const Itinerary = ({places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad}) => {
+const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad}) => {
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
@@ -45,12 +45,12 @@ const Itinerary = ({places, childClicked, isLoading,type,setType, rating, setRat
       ) : (
         <>
             <Button onClick={handleToggle} className={classes.toggleBtn}>
-            ciao
+            {itineraryName}
             </Button>
             <Grid container className={classes.list} >
             
                 {isElementVisible && addPlace?.map((place, i)=>(
-                    // <p>CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> CIAO <br /> </p>
+                    
                     
                     <Grid ref={elRefs[i]} key={i} item xs={12}>
                         <Step selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} deleteItem={remove}/>

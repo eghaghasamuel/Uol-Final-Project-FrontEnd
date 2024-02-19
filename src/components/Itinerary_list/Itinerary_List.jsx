@@ -4,7 +4,7 @@ import useStyles from "./style"
 import Itinerary from "../Itinerary/Itinerary";
 
 
-const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,list}) => {
+const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,listItinerary}) => {
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
@@ -34,8 +34,10 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
     return (
         <div className={classes.container}>
             
-            <Grid container className={classes.list}>
-                <Itinerary
+         
+                {listItinerary?.map((n) => 
+                    (<Itinerary
+                    itineraryName={n}
                     places={places}
                     childClicked={childClicked}
                     isLoading={isLoading}
@@ -44,8 +46,11 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
                     rating={rating}
                     setRating={setRating}
                     list={false}
-                />
-            </Grid>
+                />))
+            
+                }
+                
+        
             
         </div>
         

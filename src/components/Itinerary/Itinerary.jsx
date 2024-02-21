@@ -8,12 +8,15 @@ import Step from '../Step/Step'
 import Selection from "../Selection/Selection";
 
 
-const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad}) => {
+const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad,selectedPlaces,setItineraryList}) => {
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
+    
     const [isElementVisible, setElementVisibility] = useState(false);
+    
 
+    
     const handleToggle = () => {
       setElementVisibility(!isElementVisible);
     };
@@ -30,8 +33,14 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
         )
       );
     };
+    
+    useEffect(() =>{
+      setItineraryList((P) =>[...P,{[itineraryName]: addPlace}])
+    }, [addPlace])
 
-    console.log(addPlace)
+
+
+    // console.log({[itineraryName]: addPlace})
     // let selectedPlaces = [];
     // selectedPlaces.push(addPlace)
     // console.log(selectedPlaces)
@@ -48,10 +57,10 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
             {itineraryName}
             </Button>
             <Grid container className={classes.list} >
-            
+                
                 {isElementVisible && addPlace?.map((place, i)=>(
                     
-                    
+                   
                     <Grid ref={elRefs[i]} key={i} item xs={12}>
                         <Step selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} deleteItem={remove}/>
                     </Grid>

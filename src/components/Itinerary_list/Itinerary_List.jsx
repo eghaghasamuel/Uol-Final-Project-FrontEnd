@@ -4,17 +4,24 @@ import useStyles from "./style"
 import Itinerary from "../Itinerary/Itinerary";
 
 
-const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,listItinerary}) => {
+const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,listItinerary,setlisitItineraryMap}) => {
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
     const [isElementVisible, setElementVisibility] = useState(false);
-
+    const [ItineraryList,setItineraryList] = useState([])
+    
     const handleToggle = () => {
         setElementVisibility(!isElementVisible);
     };
     const classes = useStyles();
     
+
+    const [test,setTest] = useState([])
+    useEffect(()=>{
+        setTest([...test,ItineraryList])
+    }, listItinerary)
+
     useEffect(() => {
         setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
     }, [places]);
@@ -27,7 +34,7 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
       );
     };
 
-    console.log(addPlace)
+    console.log(ItineraryList)
     // let selectedPlaces = [];
     // selectedPlaces.push(addPlace)
     // console.log(selectedPlaces)
@@ -36,6 +43,7 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
             
          
                 {listItinerary?.map((n) => 
+                
                     (<Itinerary
                     itineraryName={n}
                     places={places}
@@ -46,6 +54,8 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
                     rating={rating}
                     setRating={setRating}
                     list={false}
+                    setItineraryList={setItineraryList}
+                    
                 />))
             
                 }

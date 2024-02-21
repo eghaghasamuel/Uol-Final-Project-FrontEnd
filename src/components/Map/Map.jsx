@@ -28,7 +28,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
 
                 onChildClick={(child) => setChildClicked(child)}
             >
-                {/* {places?.length && places?.map((place, i) => (
+                {places?.length && places?.map((place, i) => (
             <div
                 className={classes.markerContainer}
                 lat={Number(place.latitude)}
@@ -42,13 +42,13 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
                     <Typography className={classes.typography} variant="subtitle2" gutterBottom> {place.name}</Typography>
                     <img
                         className={classes.pointer}
-                        src={place.photo ? place.photo.images.large.url : 'https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=1835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
+                        // src={place.photo ? place.photo.images.large.url : 'https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=1835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
                     />
                     <Rating name="read-only" size="small" value={Number(place.rating)} readOnly />
                     </Paper>
                 )}
             </div>
-            ))} */}
+            ))}
                 {/* {places?.map((place, i)=>{
                     
                     <div

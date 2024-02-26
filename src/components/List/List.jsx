@@ -12,7 +12,7 @@ const List = ({places, childClicked, isLoading,type,setType, rating, setRating,l
     useEffect(() => {
         setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
     }, [places]);
-    // console.log(childClicked)
+    // //console.log(childClicked)
 
     return (
         

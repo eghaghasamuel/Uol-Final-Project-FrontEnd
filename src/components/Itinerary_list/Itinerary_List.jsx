@@ -2,28 +2,50 @@ import React, { useState, useEffect, createRef }  from "react";
 import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select, Button } from "@material-ui/core";
 import useStyles from "./style"
 import Itinerary from "../Itinerary/Itinerary";
+import { useGlobalContext } from '../../GlobalContext';
+
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
 
-const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,listItinerary,setlisitItineraryMap}) => {
+const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,listItinerary}) => { //setlistItineraryMap
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
     const [isElementVisible, setElementVisibility] = useState(false);
-    const [ItineraryList,setItineraryList] = useState([])
+    const [colors, setColors] = useState([])
+    let count = 0;
+    const [daysItinerary,setdaysItinerary] = useState(() => {
+        const initialItinerary = {};
+
+        listItinerary.forEach(day => {
+          initialItinerary[day] = [];
+        });
+        return initialItinerary;
+      });
     
     const handleToggle = () => {
         setElementVisibility(!isElementVisible);
     };
+    const { listItineraryMap, setListItineraryMap } = useGlobalContext();
     const classes = useStyles();
+    setListItineraryMap(daysItinerary)
+
+    useEffect(() =>{
+      for(var i=0; i<daysItinerary.length;i++){
+        setColors([...colors, getRandomColor()])
+      }
+    },[setdaysItinerary])
+
     
-
-    const [test,setTest] = useState([])
-    useEffect(()=>{
-        setTest([...test,ItineraryList])
-    }, listItinerary)
-
     useEffect(() => {
-        setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
+        setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()))
     }, [places]);
 
     const remove = (index) => {
@@ -34,16 +56,14 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
       );
     };
 
-    console.log(ItineraryList)
-    // let selectedPlaces = [];
-    // selectedPlaces.push(addPlace)
-    // console.log(selectedPlaces)
+    //console.log(daysItinerary)
+    
     return (
         <div className={classes.container}>
             
          
                 {listItinerary?.map((n) => 
-                
+                    
                     (<Itinerary
                     itineraryName={n}
                     places={places}
@@ -54,9 +74,12 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
                     rating={rating}
                     setRating={setRating}
                     list={false}
-                    setItineraryList={setItineraryList}
+                    setdaysItinerary={setdaysItinerary}
+                    colors={getRandomColor()}
                     
-                />))
+                />
+                )
+                )
             
                 }
                 
@@ -69,13 +92,3 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
 }
 
 export default Itinerary_List;
-
-      {/* <Grid container spacing={3} className={classes.list} >
-            
-                {addPlace?.map((place, i)=>(
-                    
-                    <Grid ref={elRefs[i]} key={i} item xs={12}>
-                        <Step selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} deleteItem={remove}/>
-                    </Grid>
-                )) }
-            </Grid> */}

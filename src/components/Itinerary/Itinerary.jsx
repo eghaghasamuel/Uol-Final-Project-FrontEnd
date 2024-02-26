@@ -8,17 +8,28 @@ import Step from '../Step/Step'
 import Selection from "../Selection/Selection";
 
 
-const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad,selectedPlaces,setItineraryList}) => {
+const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad,selectedPlaces,setdaysItinerary, colors}) => {
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
     
     const [isElementVisible, setElementVisibility] = useState(false);
     
-
+    const overrideDayArray = (Name, newArray,state) => {
+      setdaysItinerary(prevItinerary => ({
+        ...prevItinerary,
+        [Name]: [newArray,state,colors]
+      }));
+    };
     
     const handleToggle = () => {
       setElementVisibility(!isElementVisible);
+      if(isElementVisible == true){
+        overrideDayArray(itineraryName,addPlace,false)
+      }else{
+        overrideDayArray(itineraryName,addPlace,true)
+      }
+      
     };
     const classes = useStyles();
 
@@ -35,15 +46,13 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
     };
     
     useEffect(() =>{
-      setItineraryList((P) =>[...P,{[itineraryName]: addPlace}])
+
+      overrideDayArray(itineraryName,addPlace,false)
     }, [addPlace])
 
 
 
-    // console.log({[itineraryName]: addPlace})
-    // let selectedPlaces = [];
-    // selectedPlaces.push(addPlace)
-    // console.log(selectedPlaces)
+
     return (
         <div className={classes.container}>
            

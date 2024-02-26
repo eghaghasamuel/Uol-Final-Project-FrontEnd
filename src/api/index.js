@@ -3,7 +3,7 @@ import axios from "axios";
 export const getPlacesData = async (type,bounds) => {
     
     try {
-        console.log(bounds,)
+        //console.log(bounds,)
         const {data: {data}} = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
             params: {
               bl_latitude: bounds.sw.lat,
@@ -25,6 +25,6 @@ export const getPlacesData = async (type,bounds) => {
 
         return data;
     }catch (error) {
-        console.log(error)
+        //console.log(error)
     }
 }

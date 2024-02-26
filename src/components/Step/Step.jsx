@@ -9,11 +9,11 @@ import { Place } from "@material-ui/icons";
 import SearchIcon from '@material-ui/icons/Search';
 
 const Step = ({place, selected, refProp, deleteItem,  }) => {
-    // console.log(place)
-    // console.log(selected)
+    // //console.log(place)
+    // //console.log(selected)
     if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     const classes = useStyles();
-    console.log(place.location_id)
+    //console.log(place.location_id)
 
     return (
         <Card elevation={3} style={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>

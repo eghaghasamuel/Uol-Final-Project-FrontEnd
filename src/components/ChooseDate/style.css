@@ -1,0 +1,54 @@
+/* YourComponent.css */
+
+.title {
+    display: none;
+  }
+  
+  @media (min-width: 600px) {
+    .title {
+      display: block;
+    }
+  }
+  
+  .search {
+    position: relative;
+    border-radius: var(--mui-border-radius);
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .search:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  .searchIcon {
+    padding: var(--mui-spacing-2);
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .inputRoot {
+    color: inherit;
+  }
+  
+  .inputInput {
+    padding: var(--mui-spacing-1) var(--mui-spacing-1) var(--mui-spacing-1) 0;
+    padding-left: calc(1em + var(--mui-spacing-4));
+    transition: width var(--mui-transitions-create-width);
+    width: 100%;
+  }
+  
+  @media (min-width: 600px) {
+    .inputInput {
+      width: 20ch;
+    }
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  

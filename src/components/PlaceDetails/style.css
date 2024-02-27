@@ -1,0 +1,19 @@
+/* YourComponent.css */
+
+.chip {
+    margin: 5px 5px 5px 0;
+  }
+  
+  .subtitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+  
+  .spacing {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  

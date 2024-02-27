@@ -1,6 +1,6 @@
 import React, { useState, useEffect, createRef }  from "react";
-import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select, Button } from "@material-ui/core";
-import useStyles from "./style"
+import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select, Button } from "@mui/material";
+import "./style.css"
 import Itinerary from "../Itinerary/Itinerary";
 import { useGlobalContext } from '../../GlobalContext';
 
@@ -34,7 +34,7 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
         setElementVisibility(!isElementVisible);
     };
     const { listItineraryMap, setListItineraryMap } = useGlobalContext();
-    const classes = useStyles();
+  
     setListItineraryMap(daysItinerary)
 
     useEffect(() =>{
@@ -59,7 +59,7 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
     //console.log(daysItinerary)
     
     return (
-        <div className={classes.container}>
+        <div className="container">
             
          
                 {listItinerary?.map((n) => 

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Button } from '@material-ui/core';
-import useStyles from "./style"
+import { Button } from '@mui/material';
+import "./style.css"
 import List from '../List/List';
 
 
 const Selection = ({places, childClicked, isLoading,type,setType, rating, setRating,setAddPlace}) => {
-  const classes = useStyles();
+
   const [isDivVisible, setDivVisible] = useState(false);
 
   const handleElementClick = () => {
@@ -17,14 +17,14 @@ const Selection = ({places, childClicked, isLoading,type,setType, rating, setRat
   };
 
   return (
-    <div className={classes.main_div} >
+    <div className={"main_div"} >
       <Button variant="contained" color="primary" onClick={handleElementClick}>
         Add place
       </Button>
 
       {isDivVisible && (
-        <div className={classes.overlay} onClick={handleDivClose}>
-          <div className={classes.bigDiv}>
+        <div className="overlay" onClick={handleDivClose}>
+          <div className="bigDiv">
             
             <List
                 places={places}

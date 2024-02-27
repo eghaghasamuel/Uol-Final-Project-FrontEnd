@@ -1,0 +1,54 @@
+/* YourComponent.css */
+
+.title {
+    display: none;
+  }
+  
+  @media (min-width: 600px) {
+    .title {
+      display: block;
+    }
+  }
+  
+  .search {
+    position: relative;
+    border-radius: 4px; /* Use the actual border radius value */
+    background-color: rgba(255, 255, 255, 0.15);
+  }
+  
+  .search:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+  }
+  
+  .searchIcon {
+    padding: 0 8px; /* Use the actual spacing value */
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .inputRoot {
+    color: inherit;
+  }
+  
+  .inputInput {
+    padding: 8px 8px 8px 0; /* Use the actual spacing value */
+    padding-left: calc(1em + 16px); /* Use the actual spacing value */
+    transition: width 0.3s; /* Use the actual transition duration */
+    width: 100%;
+  }
+  
+  @media (min-width: 960px) {
+    .inputInput {
+      width: 20ch;
+    }
+  }
+  
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+  }
+  

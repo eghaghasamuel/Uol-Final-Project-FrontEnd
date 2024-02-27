@@ -1,18 +1,18 @@
 import React, { useState, useEffect, createRef }  from "react";
 import { Autocomplete } from '@react-google-maps/api';
-import useStyles from "./style"
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip  } from "@material-ui/core";
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import PhoneIcon from '@material-ui/icons/Phone';
-import Rating from '@material-ui/lab/Rating';
-import { Place } from "@material-ui/icons";
-import SearchIcon from '@material-ui/icons/Search';
+import "./style.css"
+import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip  } from "@mui/material";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import Rating from '@mui/material/Rating';
+import { Place } from "@mui/icons-material";
+import SearchIcon from '@mui/icons-material/Search';
 
 const Step = ({place, selected, refProp, deleteItem,  }) => {
     // //console.log(place)
     // //console.log(selected)
     if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    const classes = useStyles();
+
     //console.log(place.location_id)
 
     return (
@@ -27,7 +27,7 @@ const Step = ({place, selected, refProp, deleteItem,  }) => {
             <Typography gutterBottom variant="h10">{place.name}</Typography>
             
             { place.address && (
-                <Typography gutterBottom variant="body2" color="textSecondary" className={classes.subtitle}>
+                <Typography gutterBottom variant="body2" color="textSecondary" className="subtitle">
                     <LocationOnIcon />{place.address}
                 </Typography>
             )}

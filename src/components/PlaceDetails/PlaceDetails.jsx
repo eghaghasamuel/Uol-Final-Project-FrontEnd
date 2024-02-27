@@ -1,16 +1,16 @@
 import React from "react";
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip  } from "@material-ui/core";
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import PhoneIcon from '@material-ui/icons/Phone';
-import Rating from '@material-ui/lab/Rating';
-import useStyles from './style'
-import { Place } from "@material-ui/icons";
+import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip  } from "@mui/material";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import Rating from '@mui/material/Rating';
+import "./style.css"
+import PlaceIcon from "@mui/icons-material/Place";
 
 const PlaceDetails = ({place, selected, refProp, list,setAddPlace}) => {
     // //console.log(place)
     //console.log(selected)
     if (selected) refProp?.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    const classes = useStyles();
+   
 
 
     return (
@@ -71,7 +71,7 @@ const PlaceDetails = ({place, selected, refProp, list,setAddPlace}) => {
             <Typography gutterBottom variant="h10">{place.name}</Typography>
             
             { place.address && (
-                <Typography variant="body2" color="textSecondary" className={classes.subtitle}>
+                <Typography variant="body2" color="textSecondary" className="subtitle">
                     <LocationOnIcon />{place.address}
                 </Typography>
             )}

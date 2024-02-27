@@ -1,13 +1,27 @@
 import React, { useState } from 'react';
+// import DatePicker from 'react-datepicker';
+import SearchIcon from '@mui/icons-material/Search';
+
+import './style.css'
+// import "react-datepicker/dist/react-datepicker.css";
+// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { MultiInputDateRangeField } from '@mui/x-date-pickers-pro/MultiInputDateRangeField';
+// import { SingleInputDateRangeField } from '@mui/x-date-pickers-pro/SingleInputDateRangeField';
 
 const ChooseDate = () => {
-  const [isVisible, setIsVisible] = useState(true);
 
+
+  const [isVisible, setIsVisible] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(null)
+  const [startDate, setStartDate] = useState(new Date());
   const handleClose = () => {
     setIsVisible(false);
   };
 
   return (
+    
     isVisible && (
       <div
         style={{
@@ -23,10 +37,21 @@ const ChooseDate = () => {
           zIndex: 9999, // Make sure it's above other components
         }}
       >
-        <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', textAlign: 'center' }}>
-          <h1>This is a Full Page Modal</h1>
-          <button onClick={handleClose}>Close</button>
-        </div>
+        
+        {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer
+        components={['MultiInputDateRangeField', 'SingleInputDateRangeField']}
+      >
+        <MultiInputDateRangeField
+          slotProps={{
+            textField: ({ position }) => ({
+              label: position === 'start' ? 'Departure' : 'Return',
+            }),
+          }}
+        />
+        <SingleInputDateRangeField label="Departure - Return" />
+      </DemoContainer>
+    </LocalizationProvider> */}
       </div>
     )
   );

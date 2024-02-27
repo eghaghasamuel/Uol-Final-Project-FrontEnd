@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import { CssBaseline,Grid } from "@material-ui/core";
+import { CssBaseline,Grid } from "@mui/material";
 import {getPlacesData} from './api'
 import Header from "./components/Header/Header";
 import Map from "./components/Map/Map";

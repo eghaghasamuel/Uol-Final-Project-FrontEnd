@@ -6,8 +6,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import './style.css'
 
 const Header = ({ onPlaceChanged, onLoad }) => {
-
-
   return (
     <AppBar position="static">
       <Toolbar className="toolbar">

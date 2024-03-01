@@ -1,28 +1,25 @@
 import React, {useState, useEffect} from "react";
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { CssBaseline,Grid } from "@mui/material";
 import {getPlacesData} from './api'
 import Header from "./components/Header/Header";
 import Map from "./components/Map/Map";
 import List from "./components/List/List";
 import Itinerary_List from "./components/Itinerary_list/Itinerary_List";
-import ChooseDate from "./components/ChooseDate/ChooseDate";
+import { useGlobalContext } from './GlobalContext';
 
 
 
 const MapPage = () => {
     const [places, setPlaces] = useState([])
-    const [coordinates, setCoordinates] = useState({lat: 52.52000660, lng: 13.40495400 });
+    const {coordinates, setCoordinates} = useGlobalContext();
     const [bounds, setBounds] =useState({});
     const [childClicked, setChildClicked] = useState(null)
     const [isLoading,setIsLoading] = useState(false)
     const [type,setType] = useState('restaurants');
     const [rating,setRating] = useState('');
     const [listItinerary,setlistItinerary] = useState(["GIORNO 1","GIORNO 2"])
+    const { autocomplete,setAutocomplete } = useGlobalContext();
 
-    // const [event, setEvent] = useState()
-    const [autocomplete,setAutocomplete] = useState(null)
-    
 
     // useEffect(()=>{
     //     navigator.geolocation.getCurrentPosition(({ coords: {latitude, longitude} }) => {

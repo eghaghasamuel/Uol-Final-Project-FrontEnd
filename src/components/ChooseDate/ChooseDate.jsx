@@ -5,29 +5,43 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Autocomplete } from '@react-google-maps/api';
+import { useGlobalContext } from '../../GlobalContext';
+import { useNavigate } from 'react-router-dom';
 import './style.css'
 
 
 const ChooseDate = () => {
-  var today = new Date();
-  var dd = String(today.getDate()).padStart(2, '0');
-  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-  var yyyy = today.getFullYear();
 
-today = dd + '-' + mm + '-' + yyyy;
-console.log(today)
-  const [start, setStart] = React.useState(dayjs(today));
-  const [end, setEnd] = React.useState(dayjs(today));
-  const [isVisible, setIsVisible] = useState(true);
-  const [selectedDate, setSelectedDate] = useState(null)
-  const [startDate, setStartDate] = useState(new Date());
-  const handleClose = () => {
-    setIsVisible(false);
+  const { autocomplete, setAutocomplete } = useGlobalContext();
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+  let yyyy = today.getFullYear();
+
+  today = dd + '-' + mm + '-' + yyyy;
+  console.log(today)
+  const navigate = useNavigate();
+  const {coordinates, setCoordinates} = useGlobalContext();
+  const [start, setStart] = useState(dayjs(today));
+  const [end, setEnd] = useState(dayjs(today));
+  
+  
+  console.log(autocomplete)
+  const onLoad = (autoC) => setAutocomplete(autoC);
+
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+    const lng = autocomplete.getPlace().geometry.location.lng();
+    
+    setCoordinates({ lat, lng });
+};
+  const handleRedirect = () => {
+    navigate('/plan');
   };
 
   return (
     
-    isVisible && (
+   
       
       <div
         style={{
@@ -45,30 +59,33 @@ console.log(today)
       >
         
         <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', textAlign: 'center' }}>
-        <Autocomplete >
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
             <div className="title">
           
               <TextField placeholder="Enter Destination" />
             </div>
           </Autocomplete>
           <br /><br />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
      
      <DatePicker
        label="Start Date"
        value={start}
-       onChange={(newValue) => {if (newValue < end){setStart(newValue)}else{setIsVisible(false)}}}
+       onChange={(newValue) => {if (newValue < end){setStart(newValue)}}}
      />
      <DatePicker
        label="End Date"
        value={end}
-       onChange={(newValue) => {if (newValue > start){setEnd(newValue)}else{setIsVisible(false)}}}
+       onChange={(newValue) => {if (newValue > start){setEnd(newValue)}}}
      />
-   
-      
-    </LocalizationProvider>
+      </LocalizationProvider>
+      <br />
+      <Button variant="contained" color="primary" onClick={handleRedirect}>
+            Go to Plan
+          </Button>
           
-          <Button onClick={handleClose}>Close</Button>
+          
         </div>
         
       </div>
@@ -76,7 +93,7 @@ console.log(today)
     )
 
     
-  );
+  
 };
 
 export default ChooseDate;

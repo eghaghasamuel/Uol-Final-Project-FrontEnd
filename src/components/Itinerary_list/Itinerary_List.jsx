@@ -56,8 +56,6 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
       );
     };
 
-    //console.log(daysItinerary)
-    
     return (
         <div className="container">
             

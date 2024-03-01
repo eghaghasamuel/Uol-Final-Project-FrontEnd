@@ -5,9 +5,10 @@ const GlobalContext = createContext();
 
 export const GlobalProvider = ({ children }) => {
   const [listItineraryMap, setListItineraryMap] = useState({});
-
+  const [autocomplete,setAutocomplete] = useState(null);
+  const [coordinates, setCoordinates] = useState({});
   return (
-    <GlobalContext.Provider value={{ listItineraryMap, setListItineraryMap }}>
+    <GlobalContext.Provider value={{ listItineraryMap, setListItineraryMap, autocomplete,setAutocomplete,coordinates, setCoordinates }}>
       {children}
     </GlobalContext.Provider>
   );

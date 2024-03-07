@@ -21,14 +21,3 @@
     padding: 25px;
   }
   
-  .marginBottom {
-    margin-bottom: 30px;
-  }
-  
-  .list {
-    height: 30vh;
-    overflow: auto;
-    display: flex;
-    flex-direction: row;
-  }
-  

@@ -6,27 +6,24 @@ import Map from "./components/Map/Map";
 import List from "./components/List/List";
 import Itinerary_List from "./components/Itinerary_list/Itinerary_List";
 import { useGlobalContext } from './GlobalContext';
+import { redirect } from "react-router-dom";
 
 
 
-const MapPage = () => {
+const MapPage = (user) => {
     const [places, setPlaces] = useState([])
+    const {listItinerary,setlistItinerary} = useGlobalContext();
     const {coordinates, setCoordinates} = useGlobalContext();
     const [bounds, setBounds] =useState({});
     const [childClicked, setChildClicked] = useState(null)
     const [isLoading,setIsLoading] = useState(false)
     const [type,setType] = useState('restaurants');
     const [rating,setRating] = useState('');
-    const [listItinerary,setlistItinerary] = useState(["GIORNO 1","GIORNO 2"])
     const { autocomplete,setAutocomplete } = useGlobalContext();
-
-
-    // useEffect(()=>{
-    //     navigator.geolocation.getCurrentPosition(({ coords: {latitude, longitude} }) => {
-    //         setCoordinates({lat: latitude, lng: longitude});
-    //     })
-    // }, []);
-
+    const {onLoad} = useGlobalContext();
+    
+  
+    
     useEffect (() =>{
         setIsLoading(true)
         getPlacesData(type,bounds)
@@ -36,7 +33,7 @@ const MapPage = () => {
                 setIsLoading(false)
             })
     }, [type,coordinates, bounds]);
-    const onLoad = (autoC) => setAutocomplete(autoC);
+    
 
     const onPlaceChanged = () => {
         const lat = autocomplete.getPlace().geometry.location.lat();
@@ -48,7 +45,7 @@ const MapPage = () => {
     return (
         <>
             <CssBaseline/>
-            <Header onPlaceChanged={onPlaceChanged} onLoad={onLoad} />
+            <Header user={user} />
             <Grid container spacing={3} style={{width: '100%'}}>
                 <Grid item xs={12} md={4}>
                     <List

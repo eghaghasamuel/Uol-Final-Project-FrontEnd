@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
+
 import { Paper, Typography, useMediaQuery } from "@mui/material";
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import Rating from '@mui/material/Rating';
@@ -17,7 +18,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
     const isMobile = useMediaQuery('(min-width:600px)');
     const { listItineraryMap, setListItineraryMap } = useGlobalContext();
     const markers = [];
-
+  
     
 
     
@@ -60,7 +61,7 @@ const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }
                       key={detail.location_id}
                       lat={Number(detail.latitude)}
                       lng={Number(detail.longitude)}
-                      text={detail.name}
+                      text={i+1}
                       color={details[2]}
                     />
                   )

@@ -65,12 +65,12 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
             <Button onClick={handleToggle} className="toggleBtn">
             {itineraryName}
             </Button>
-            <Grid container className="list" >
+            <Grid container className="list_itinerary" >
                 
                 {isElementVisible && addPlace?.map((place, i)=>(
                     
                    
-                    <Grid ref={elRefs[i]} key={i} item xs={12}>
+                    <Grid ref={elRefs[i]} key={i} item >
                         <Step selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} deleteItem={remove}/>
                     </Grid>
                 )) }

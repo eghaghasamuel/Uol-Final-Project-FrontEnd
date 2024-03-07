@@ -3,6 +3,7 @@ import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Sel
 import "./style.css"
 import Itinerary from "../Itinerary/Itinerary";
 import { useGlobalContext } from '../../GlobalContext';
+import { redirect } from "react-router-dom";
 
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
@@ -14,7 +15,7 @@ function getRandomColor() {
 }
 
 
-const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,listItinerary}) => { //setlistItineraryMap
+const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,listItinerary}) => { 
 
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
@@ -23,13 +24,15 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
     let count = 0;
     const [daysItinerary,setdaysItinerary] = useState(() => {
         const initialItinerary = {};
+          listItinerary.forEach(day => {
+            initialItinerary[day] = [];
+          });
 
-        listItinerary.forEach(day => {
-          initialItinerary[day] = [];
-        });
+       
         return initialItinerary;
       });
-    
+
+   
     const handleToggle = () => {
         setElementVisibility(!isElementVisible);
     };

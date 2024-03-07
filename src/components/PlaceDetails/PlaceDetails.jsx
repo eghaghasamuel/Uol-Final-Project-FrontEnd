@@ -68,7 +68,7 @@ const PlaceDetails = ({place, selected, refProp, list,setAddPlace}) => {
         />
         <CardContent >
         
-            <Typography gutterBottom variant="h10">{place.name}</Typography>
+            <Typography  variant="h10">{place.name}</Typography>
             
             { place.address && (
                 <Typography variant="body2" color="textSecondary" className="subtitle">

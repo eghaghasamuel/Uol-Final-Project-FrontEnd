@@ -7,11 +7,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Autocomplete } from '@react-google-maps/api';
 import { useGlobalContext } from '../../GlobalContext';
 import { useNavigate } from 'react-router-dom';
+
+import Header from "../../components/Header/Header";
 import './style.css'
 
 
 const ChooseDate = () => {
 
+
+  
   const { autocomplete, setAutocomplete } = useGlobalContext();
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, '0');
@@ -21,13 +25,27 @@ const ChooseDate = () => {
   today = dd + '-' + mm + '-' + yyyy;
   console.log(today)
   const navigate = useNavigate();
+  const {listItinerary,setlistItinerary} = useGlobalContext();
   const {coordinates, setCoordinates} = useGlobalContext();
   const [start, setStart] = useState(dayjs(today));
   const [end, setEnd] = useState(dayjs(today));
   
   
   console.log(autocomplete)
-  const onLoad = (autoC) => setAutocomplete(autoC);
+  const {onLoad} = useGlobalContext()
+
+
+  const getDatesInRange = (start, end) => {
+    const range = [];
+    let currentDate = start;
+
+    while (currentDate.isBefore(end) || currentDate.isSame(end)) {
+      range.push(currentDate.format('DD-MM-YYYY'));
+      currentDate = currentDate.add(1, 'day');
+    }
+
+    return range;
+  };
 
   const onPlaceChanged = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
@@ -36,28 +54,21 @@ const ChooseDate = () => {
     setCoordinates({ lat, lng });
 };
   const handleRedirect = () => {
+    setlistItinerary(getDatesInRange(start, end))
     navigate('/plan');
   };
 
   return (
     
-   
+      
       
       <div
         style={{
-          position: 'fixed',
           top: 0,
           left: 0,
-          width: '100%',
-          height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: '0', // Make sure it's above other components
         }}
       >
-        
+        <Header/> 
         <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', textAlign: 'center' }}>
         <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
             <div className="title">
@@ -70,14 +81,16 @@ const ChooseDate = () => {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
      
      <DatePicker
+     format='DD/MM/YYYY'
        label="Start Date"
        value={start}
-       onChange={(newValue) => {if (newValue < end){setStart(newValue)}}}
+       onChange={(newValue) => {setStart(newValue)}}
      />
      <DatePicker
+       format='DD/MM/YYYY'
        label="End Date"
        value={end}
-       onChange={(newValue) => {if (newValue > start){setEnd(newValue)}}}
+       onChange={(newValue) => {setEnd(newValue)}}
      />
       </LocalizationProvider>
       <br />
@@ -89,7 +102,7 @@ const ChooseDate = () => {
         </div>
         
       </div>
-      
+    
     )
 
     

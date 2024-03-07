@@ -37,7 +37,7 @@
     margin-bottom: 30px;
   }
   
-  .list {
+  .list_itinerary {
     overflow: auto;
     display: flex;
     flex-direction: row;

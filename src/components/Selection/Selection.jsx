@@ -4,12 +4,13 @@ import "./style.css"
 import List from '../List/List';
 
 
-const Selection = ({places, childClicked, isLoading,type,setType, rating, setRating,setAddPlace}) => {
+const Selection = ({places, childClicked, isLoading,type,setType, rating, setRating,setAddPlace, clicked}) => {
 
   const [isDivVisible, setDivVisible] = useState(false);
 
   const handleElementClick = () => {
     setDivVisible(true);
+    clicked(true)
   };
 
   const handleDivClose = () => {

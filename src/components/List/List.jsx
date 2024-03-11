@@ -2,12 +2,12 @@ import React, { useState, useEffect, createRef }  from "react";
 import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select } from "@mui/material";
 import "./style.css"
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
-
+import { useGlobalContext } from '../../GlobalContext';
 
 const List = ({places, childClicked, isLoading,type,setType, rating, setRating,list,setAddPlace}) => {
 
     const [elRefs, setElRefs] = useState([]);
-
+    const {title, setTitle} = useGlobalContext();
 
     useEffect(() => {
         setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
@@ -17,7 +17,7 @@ const List = ({places, childClicked, isLoading,type,setType, rating, setRating,l
     return (
         
         <div className="container">
-            <Typography variant="h4">Travely</Typography>
+            <Typography variant="h4">{title}</Typography>
             <br />
             {isLoading ? (
         <div className="loading">

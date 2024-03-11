@@ -15,26 +15,38 @@ const googleAuth = () => {
     "_self"
   );
 };
-export default function Signin() {
-  
-  const handleSubmit = async (event) => {
+const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     
     try {
       // Send POST request to /register
-      const response = await axios.post("http://localhost:3000/api/auth/login", {
-        email: formData.get("email"),
-        password: formData.get("password"),
-      });
-
-      // Handle the response (e.g., redirect or show a success message)
-      console.log("Registration successful:", response.data);
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/login`,
+        {
+          email: formData.get("email"),
+          password: formData.get("password"),
+          
+        },
+        {
+          withCredentials: true, // Include this option
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      window.open(
+      `/`,
+      "_self"
+    );
     } catch (error) {
       // Handle errors (e.g., display an error message)
       console.error("Registration failed:", error.message);
     }
   };
+export default function Signin() {
+  
+  
 
   return (
     <Container component="main" maxWidth="xs">
@@ -89,14 +101,9 @@ export default function Signin() {
             Sign in with google
           </Button>
           <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
             <Grid item>
-              <Link to="/register" variant="body2">
-                {"Don't have an account? Sign Up"}
+              <Link href="/register" variant="body2">
+                Don't have an account? Sign Up
               </Link>
             </Grid>
           </Grid>

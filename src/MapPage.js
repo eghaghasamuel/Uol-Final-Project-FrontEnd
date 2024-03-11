@@ -13,6 +13,8 @@ import { redirect } from "react-router-dom";
 const MapPage = (user) => {
     const [places, setPlaces] = useState([])
     const {listItinerary,setlistItinerary} = useGlobalContext();
+    const {listItineraryMap,setlistItineraryMap} = useGlobalContext();
+    
     const {coordinates, setCoordinates} = useGlobalContext();
     const [bounds, setBounds] =useState({});
     const [childClicked, setChildClicked] = useState(null)
@@ -22,13 +24,17 @@ const MapPage = (user) => {
     const { autocomplete,setAutocomplete } = useGlobalContext();
     const {onLoad} = useGlobalContext();
     
+    
+
   
     
     useEffect (() =>{
+        
+        
         setIsLoading(true)
         getPlacesData(type,bounds)
             .then((data) => {
-                //console.log(data);
+                
                 setPlaces(data);
                 setIsLoading(false)
             })
@@ -45,7 +51,7 @@ const MapPage = (user) => {
     return (
         <>
             <CssBaseline/>
-            <Header user={user} />
+            <Header user={user} mappage={true}/>
             <Grid container spacing={3} style={{width: '100%'}}>
                 <Grid item xs={12} md={4}>
                     <List
@@ -68,7 +74,6 @@ const MapPage = (user) => {
                         setRating={setRating}
                         list={false}
                         listItinerary={listItinerary}
-                        // setlistItineraryMap={setlistItineraryMap}
                     />
                 </Grid>
                 <Grid item xs={12} md={8}>

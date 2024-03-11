@@ -4,11 +4,11 @@
     display: none;
   }
   
-  @media (min-width: 600px) {
+ 
     .title {
       display: block;
     }
-  }
+  
   
   .search {
     position: relative;

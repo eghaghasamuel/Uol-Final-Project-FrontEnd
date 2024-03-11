@@ -1,33 +1,56 @@
 import React, { useState, useEffect, createRef }  from "react";
-import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select, InputBase, Button} from "@mui/material";
+import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select, InputBase, Button, List} from "@mui/material";
 import { Autocomplete } from '@react-google-maps/api';
 import './style.css'
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
 import SearchIcon from '@mui/icons-material/Search';
 import Step from '../Step/Step'
 import Selection from "../Selection/Selection";
+import { useGlobalContext } from "../../GlobalContext";
 
 
-const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad,selectedPlaces,setdaysItinerary, colors}) => {
-
+const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad,selectedPlaces, colors, clicked}) => {
+    const [count, setCount] = useState(0)
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
     
     const [isElementVisible, setElementVisibility] = useState(false);
-    
-    const overrideDayArray = (Name, newArray,state) => {
-      setdaysItinerary(prevItinerary => ({
-        ...prevItinerary,
-        [Name]: [newArray,state,colors]
-      }));
+    const {listItineraryMap, setListItineraryMap} = useGlobalContext()
+    const overrideDayArray = (Name, newArray, state) => {
+      
+      setListItineraryMap({
+        ...listItineraryMap,
+        [Name]: [newArray, state, colors],
+      });
+      console.log("After Override", listItineraryMap)
     };
     
+    // useEffect(() => {
+    //   setCount(count+1)
+    //   if(count==1){
+    //     setAddPlace(listItineraryMap[itineraryName][0])
+    //   }
+      
+    // }, [addPlace]);
+    
+    
     const handleToggle = () => {
+      let list
       setElementVisibility(!isElementVisible);
       if(isElementVisible == true){
-        overrideDayArray(itineraryName,addPlace,false)
+        try{
+          list = listItineraryMap[itineraryName][0]
+        }catch(err){
+          list = addPlace
+        }
+        overrideDayArray(itineraryName,list,false)
       }else{
-        overrideDayArray(itineraryName,addPlace,true)
+        try{
+          list = listItineraryMap[itineraryName][0]
+        }catch(err){
+          list = addPlace
+        }
+        overrideDayArray(itineraryName,list,true)
       }
       
     };
@@ -43,15 +66,28 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
           (place) => !(place.location_id === index)
         )
       );
+      
     };
     
     useEffect(() =>{
-
-      overrideDayArray(itineraryName,addPlace,false)
+      
+      console.log(listItineraryMap)
+      
+      if(addPlace.length == 0){
+        try{
+          
+            setAddPlace(listItineraryMap[itineraryName][0])
+        }catch(err){
+          console.log("Nope")
+        }
+      }else{
+        overrideDayArray(itineraryName,addPlace,false)
+      }
+      
     }, [addPlace])
 
 
-
+    
 
     return (
         <div className="container">
@@ -67,10 +103,11 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
             </Button>
             <Grid container className="list_itinerary" >
                 
-                {isElementVisible && addPlace?.map((place, i)=>(
+                {isElementVisible && listItineraryMap[itineraryName][0]?.map((place, i)=>(
                     
                    
                     <Grid ref={elRefs[i]} key={i} item >
+                      {console.log(place)}
                         <Step selected={Number(childClicked) === i} refProp={elRefs[i]} place={place} deleteItem={remove}/>
                     </Grid>
                 )) }
@@ -87,6 +124,7 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
                 rating={rating}
                 setRating={setRating}
                 setAddPlace={setAddPlace}
+                clicked={clicked}
             />
         </div>
     );

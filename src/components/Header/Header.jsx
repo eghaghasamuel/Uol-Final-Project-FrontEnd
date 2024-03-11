@@ -16,7 +16,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete } from '@react-google-maps/api';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './style.css'
 import { useGlobalContext } from '../../GlobalContext';
 
@@ -25,7 +25,9 @@ import { useGlobalContext } from '../../GlobalContext';
 const logout = () => {
   window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
 };
-
+const login = () => {
+  window.open(`/login`, "_self");
+};
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
@@ -67,11 +69,10 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-
-const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Header() {
+function Header(user,mappage) {
+  const navigate = useNavigate()
   const onLoad = (autoC) => setAutocomplete(autoC);
   const {coordinates, setCoordinates} = useGlobalContext();
   const { autocomplete,setAutocomplete } = useGlobalContext();
@@ -99,7 +100,7 @@ function Header() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  //console.log(user.user.user)
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -109,7 +110,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -120,7 +121,7 @@ function Header() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            TRAVELY
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -152,7 +153,12 @@ function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              
+              {mappage==true ? <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: 'white', display: 'block' }}
+              >
+                send itinerary
+              </Button> : null}
             </Menu>
             
           </Box>
@@ -161,7 +167,7 @@ function Header() {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: 'flex', md: 'none' },
@@ -177,12 +183,13 @@ function Header() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             
-              <Button
+          {mappage==true ? <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 send itinerary
-              </Button>
+              </Button> : null}
+            
          
           </Box>
               
@@ -220,15 +227,23 @@ function Header() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-                <MenuItem key="Dashboard" >
+                <MenuItem key="Dashboard" onClick={()=>navigate('/Dashboard')}>
                   <Typography textAlign="center">Dashboard</Typography>
                 </MenuItem>
-                <MenuItem key="logout" onClick={logout}>
-                  <Typography textAlign="center">Logout</Typography>
+                <MenuItem key="Profile" onClick={()=>{navigate('/');}}>
+                  <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
+                {user.user.user != "" ? <MenuItem key="logout" onClick={logout}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem> : <MenuItem key="login" onClick={login}>
+                  <Typography textAlign="center">login</Typography>
+                </MenuItem>}
+                
              
             </Menu>
+            
           </Box>
+          {user.user.user != "" ? <Typography textAlign="center">{user.user.user}</Typography> : null}
         </Toolbar>
       </Container>
     </AppBar>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { Button,TextField } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -7,12 +7,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Autocomplete } from '@react-google-maps/api';
 import { useGlobalContext } from '../../GlobalContext';
 import { useNavigate } from 'react-router-dom';
-
+import Trips from '../Trips/Trips';
+import Box from "@mui/material/Box";
 import Header from "../../components/Header/Header";
+import Carousel from 'react-bootstrap/Carousel';
+import axios from 'axios';
 import './style.css'
 
 
-const ChooseDate = () => {
+const ChooseDate = (user,userid) => {
 
 
   
@@ -23,18 +26,27 @@ const ChooseDate = () => {
   let yyyy = today.getFullYear();
 
   today = dd + '-' + mm + '-' + yyyy;
-  console.log(today)
+  
   const navigate = useNavigate();
+  const {trip, setTrip} = useGlobalContext();
   const {listItinerary,setlistItinerary} = useGlobalContext();
   const {coordinates, setCoordinates} = useGlobalContext();
+  const {title, setTitle} = useGlobalContext();
   const [start, setStart] = useState(dayjs(today));
   const [end, setEnd] = useState(dayjs(today));
   
   
-  console.log(autocomplete)
+  
   const {onLoad} = useGlobalContext()
+  
+  const handleSubmit = async (event) =>{
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    setTitle(formData.get("title"))
+    setlistItinerary(getDatesInRange(start, end))
+    navigate('/plan');
 
-
+  }
   const getDatesInRange = (start, end) => {
     const range = [];
     let currentDate = start;
@@ -46,33 +58,30 @@ const ChooseDate = () => {
 
     return range;
   };
-
+  
   const onPlaceChanged = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
     
     setCoordinates({ lat, lng });
 };
-  const handleRedirect = () => {
-    setlistItinerary(getDatesInRange(start, end))
-    navigate('/plan');
-  };
 
   return (
-    
-      
-      
       <div
         style={{
           top: 0,
           left: 0,
         }}
       >
-        <Header/> 
+        <Header user={user} mappage={false}/> 
+        <Box component="form" onSubmit={(handleSubmit)} noValidate sx={{ mt: 1 }}>
         <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', textAlign: 'center' }}>
-        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+        <div className="title">
+              <TextField name='title' placeholder="Enter Title" required/>
+        </div>
+        <br /><br />
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} required>
             <div className="title">
-          
               <TextField placeholder="Enter Destination" />
             </div>
           </Autocomplete>
@@ -93,15 +102,20 @@ const ChooseDate = () => {
        onChange={(newValue) => {setEnd(newValue)}}
      />
       </LocalizationProvider>
-      <br />
-      <Button variant="contained" color="primary" onClick={handleRedirect}>
+      <br /> <br />
+      <Button type="submit"  variant="contained" color="primary">
             Go to Plan
           </Button>
           
           
         </div>
-        
+
+        </Box>
+      {trip?.map((i)=>(
+        <Trips place={i} userid={userid}/>
+      ))}
       </div>
+      
     
     )
 

@@ -10,31 +10,45 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import axios from "axios";
 const googleAuth = () => {
+  
   window.open(
     `${process.env.REACT_APP_API_URL}/auth/google/callback`,
     "_self"
   );
 };
-export default function Signup() {
-  
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    
-    try {
-      // Send POST request to your server (replace the URL with your actual endpoint)
-      const response = await axios.post("http://localhost:3000/api/auth/register", {
+const handleSubmit = async (event) => {
+  event.preventDefault();
+  const formData = new FormData(event.currentTarget);
+  console.log(formData.get("password"))
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/auth/register`,
+      {
         email: formData.get("email"),
         password: formData.get("password"),
-      });
+      },
+      {
+        withCredentials: true, // Include this option
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    window.open(
+      `/`,
+      "_self"
+    );
+    console.log("Registration successful:", response.data);
+    // Redirect or handle success accordingly
+  } catch (error) {
+    console.error("Registration failed:", error.message);
+    // Handle errors, display an error message to the user, etc.
+  }
+};
 
-      // Handle the response (e.g., redirect or show a success message)
-      console.log("Registration successful:", response.data);
-    } catch (error) {
-      // Handle errors (e.g., display an error message)
-      console.error("Registration failed:", error.message);
-    }
-  };
+export default function Signup() {
+  
+  
 
   return (
     <Container component="main" maxWidth="xs">

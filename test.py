@@ -10,5 +10,5 @@ def print_file_structure(folder_path):
             print('{}{}'.format(subindent, file))
 
 # Replace '/path/to/your/folder' with the actual path to your folder
-folder_path = 'C:\\Users\\oeghagha\\OneDrive - Capgemini\\Documents\\travel application\\my-app'
+folder_path = 'C:\\Users\\oeghagha\\OneDrive - Capgemini\\Documents\\travel application\\client'
 print_file_structure(folder_path)

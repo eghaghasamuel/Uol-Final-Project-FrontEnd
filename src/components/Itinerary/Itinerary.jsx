@@ -37,7 +37,7 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
     const handleToggle = () => {
       let list
       setElementVisibility(!isElementVisible);
-      if(isElementVisible == true){
+      if(isElementVisible === true){
         try{
           list = listItineraryMap[itineraryName][0]
         }catch(err){
@@ -73,7 +73,7 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
       
       console.log(listItineraryMap)
       
-      if(addPlace.length == 0){
+      if(addPlace.length === 0){
         try{
           
             setAddPlace(listItineraryMap[itineraryName][0])

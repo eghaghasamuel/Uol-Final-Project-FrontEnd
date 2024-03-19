@@ -49,7 +49,7 @@ const App = () => {
 
           },
         });
-        if(response.data.error == false){
+        if(response.data.error === false){
           setTrip(response.data.trip_list)
         }else{
           setTrip([])

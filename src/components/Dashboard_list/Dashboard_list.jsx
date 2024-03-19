@@ -24,12 +24,12 @@ const Dashboard_List = ({ iti }) => {
         
         setListItineraryMap(iti.listIti)
         
-        if(listItinerary[0] == "GIORNO"){
+        if(listItinerary[0] === "GIORNO"){
             let list = []
             let count =0
             for (const [key, value] of Object.entries(iti.listIti)) {
                 list.push(key)
-                if(count == 1){
+                if(count === 1){
                     setCoordinates({lat: Number(value[0].latitude), lng:  Number(value[0].longitide)})
                     console.log("SSSSS ",coordinates)
                 }

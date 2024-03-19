@@ -153,7 +153,7 @@ function Header(user,mappage) {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {mappage==true ? <Button
+              {mappage===true ? <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -183,7 +183,7 @@ function Header(user,mappage) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             
-          {mappage==true ? <Button
+          {mappage===true ? <Button
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >

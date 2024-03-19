@@ -71,7 +71,7 @@ const Trips = ({place, userid}) => {
             let count =0
             for (const [key, value] of Object.entries(place.listTrip)) {
                 list.push(key)
-                if(count == 1){
+                if(count === 1){
                     setCoordinates({lat: value[0].latitude, lng:  value[0].longitide})
                     console.log(coordinates)
                 }

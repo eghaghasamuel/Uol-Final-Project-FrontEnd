@@ -1,31 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import GoogleMapReact from "google-map-react";
-
-import { Paper, Typography, useMediaQuery } from "@mui/material";
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
-import Rating from '@mui/material/Rating';
+import { useMediaQuery } from "@mui/material";
 import "./style.css"
 import { useGlobalContext } from '../../GlobalContext';
-import Itinerary from "../Itinerary/Itinerary";
+
 
 const Marker = ({ text,color }) => (
     <div style={{ color: 'white', background: color, padding: '10px', borderRadius: '50%', display: 'inline-flex', textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
     {text}
   </div>
   );
-const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }) => { //,listItineraryMap
-   
+const Map = ({ setCoordinates, setBounds, coordinates, places, setChildClicked }) => { 
     const isMobile = useMediaQuery('(min-width:600px)');
     const { listItineraryMap, setListItineraryMap } = useGlobalContext();
     const markers = [];
   
     
-
-    
-    // useEffect(()=>{
-    //     console.log(listItineraryMap["GIORNO 1"][0])
-        
-    // }, [listItineraryMap]);
     
     return (
         <div className="mapContainer">

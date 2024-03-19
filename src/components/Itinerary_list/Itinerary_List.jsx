@@ -1,9 +1,8 @@
 import React, { useState, useEffect, createRef }  from "react";
-import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select, Button } from "@mui/material";
+import {Button } from "@mui/material";
 import "./style.css"
 import Itinerary from "../Itinerary/Itinerary";
 import { useGlobalContext } from '../../GlobalContext';
-import { redirect } from "react-router-dom";
 import axios from "axios";
 
 function getRandomColor() {
@@ -22,8 +21,8 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
     const [addPlace, setAddPlace] = useState([])
     const [isElementVisible, setElementVisibility] = useState(false);
     const [colors, setColors] = useState([])
-    const {title, setTitle} = useGlobalContext()
-    const {user_global, setUser_global} = useGlobalContext()
+    const {title} = useGlobalContext()
+    const {user_global} = useGlobalContext()
     const [clicked, setClicked] = useState(false)
     const { listItineraryMap, setListItineraryMap } = useGlobalContext(); 
 

@@ -1,16 +1,12 @@
 import React, { useState, useEffect, createRef }  from "react";
-import { CircularProgress, Grid,Typography, InputLabel,MenuItem, FormControl,Select, InputBase, Button, List} from "@mui/material";
-import { Autocomplete } from '@react-google-maps/api';
+import { CircularProgress, Grid, Button} from "@mui/material";
 import './style.css'
-import PlaceDetails from "../PlaceDetails/PlaceDetails";
-import SearchIcon from '@mui/icons-material/Search';
 import Step from '../Step/Step'
 import Selection from "../Selection/Selection";
 import { useGlobalContext } from "../../GlobalContext";
 
 
-const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating,onPlaceChanged, onLoad,selectedPlaces, colors, clicked}) => {
-    const [count, setCount] = useState(0)
+const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType, rating, setRating, colors, clicked}) => {
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
     
@@ -25,14 +21,7 @@ const Itinerary = ({itineraryName, places, childClicked, isLoading,type,setType,
       console.log("After Override", listItineraryMap)
     };
     
-    // useEffect(() => {
-    //   setCount(count+1)
-    //   if(count==1){
-    //     setAddPlace(listItineraryMap[itineraryName][0])
-    //   }
-      
-    // }, [addPlace]);
-    
+  
     
     const handleToggle = () => {
       let list

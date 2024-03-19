@@ -1,21 +1,16 @@
-import React, { useState, useEffect, createRef } from "react";
+import React from "react";
 import "./style.css"
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip, TextField } from "@mui/material";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
-import Rating from '@mui/material/Rating';
-import { Place } from "@mui/icons-material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Typography, Button, Card, CardMedia, CardContent, CardActions } from "@mui/material";
 import { useGlobalContext } from "../../GlobalContext";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+
 
 const Dashboard_List = ({ iti }) => {
     const {listItineraryMap, setListItineraryMap} = useGlobalContext()
     const {coordinates, setCoordinates} = useGlobalContext()
     const {listItinerary,setlistItinerary} = useGlobalContext()
     const {title, setTitle} = useGlobalContext()
-    const {user_global, setUser_global} = useGlobalContext()
+
     
 
     const navigate = useNavigate()

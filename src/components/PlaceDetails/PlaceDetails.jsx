@@ -1,10 +1,9 @@
 import React from "react";
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip  } from "@mui/material";
+import { Typography, Button, Card, CardMedia, CardContent, CardActions  } from "@mui/material";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
-import Rating from '@mui/material/Rating';
+
 import "./style.css"
-import PlaceIcon from "@mui/icons-material/Place";
+
 
 const PlaceDetails = ({place, selected, refProp, list,setAddPlace}) => {
     // //console.log(place)

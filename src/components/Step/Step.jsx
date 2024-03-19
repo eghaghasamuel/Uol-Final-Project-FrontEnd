@@ -1,12 +1,9 @@
-import React, { useState, useEffect, createRef }  from "react";
-import { Autocomplete } from '@react-google-maps/api';
+import React from "react";
+
 import "./style.css"
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip  } from "@mui/material";
+import {  Typography, Button, Card, CardMedia, CardContent, CardActions  } from "@mui/material";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
-import Rating from '@mui/material/Rating';
-import { Place } from "@mui/icons-material";
-import SearchIcon from '@mui/icons-material/Search';
+
 
 const Step = ({place, selected, refProp, deleteItem,  }) => {
     // //console.log(place)

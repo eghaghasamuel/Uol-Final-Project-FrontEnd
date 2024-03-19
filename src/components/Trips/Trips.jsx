@@ -1,11 +1,6 @@
-import React, { useState, useEffect, createRef }  from "react";
+import React, { useState }  from "react";
 import "./style.css"
-import { Box, Typography, Button, Card, CardMedia, CardContent, CardActions, Chip, TextField  } from "@mui/material";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import PhoneIcon from '@mui/icons-material/Phone';
-import Rating from '@mui/material/Rating';
-import { Place } from "@mui/icons-material";
-import SearchIcon from '@mui/icons-material/Search';
+import { Typography, Button, Card, CardMedia, CardContent, CardActions, TextField  } from "@mui/material";
 import { useGlobalContext } from "../../GlobalContext";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
@@ -15,8 +10,8 @@ const Trips = ({place, userid}) => {
     const {listItineraryMap, setListItineraryMap} = useGlobalContext()
     const {coordinates, setCoordinates} = useGlobalContext()
     const {listItinerary,setlistItinerary} = useGlobalContext()
-    const {title, setTitle} = useGlobalContext()
-    const {user_global, setUser_global} = useGlobalContext()
+    const {setTitle} = useGlobalContext()
+    const {user_global} = useGlobalContext()
     const [mytrip,setMytrip] = useState(place.listTrip)
     const [visible, setVisible] =useState(false)
     const navigate = useNavigate()
@@ -66,7 +61,7 @@ const Trips = ({place, userid}) => {
         setListItineraryMap(place.listTrip)
         console.log("from tripssss", listItineraryMap)
         
-        if(listItinerary[0] == "GIORNO"){
+        if(listItinerary[0] === "GIORNO"){
             let list = []
             let count =0
             for (const [key, value] of Object.entries(place.listTrip)) {

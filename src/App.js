@@ -21,7 +21,7 @@ const App = () => {
 			const { data } = await axios.get(url, { withCredentials: true });
       
       try{
-        if(data.user._json.email != "") {
+        if(data.user._json.email !== "") {
           setUser_global(data.user)
           setUser(data.user._json.email);
         }

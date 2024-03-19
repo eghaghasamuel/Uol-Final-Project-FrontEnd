@@ -233,7 +233,7 @@ function Header(user,mappage) {
                 <MenuItem key="Profile" onClick={()=>{navigate('/');}}>
                   <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-                {user.user.user != "" ? <MenuItem key="logout" onClick={logout}>
+                {user.user.user !== "" ? <MenuItem key="logout" onClick={logout}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem> : <MenuItem key="login" onClick={login}>
                   <Typography textAlign="center">login</Typography>
@@ -243,7 +243,7 @@ function Header(user,mappage) {
             </Menu>
             
           </Box>
-          {user.user.user != "" ? <Typography textAlign="center">{user.user.user}</Typography> : null}
+          {user.user.user !== "" ? <Typography textAlign="center">{user.user.user}</Typography> : null}
         </Toolbar>
       </Container>
     </AppBar>

@@ -14,7 +14,6 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import SearchIcon from '@mui/icons-material/Search';
 import { Autocomplete } from '@react-google-maps/api';
 import { useNavigate } from 'react-router-dom';
 import './style.css'
@@ -48,7 +47,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -100,7 +98,7 @@ function Header(user,mappage) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-  //console.log(user.user.user)
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -208,7 +206,8 @@ function Header(user,mappage) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar src="/static/images/avatar/2.jpg" />
+              {user.user.user !== "" ? <Typography color={"white"} textAlign="center">{user.user.user}</Typography> : <Avatar src="/static/images/avatar/2.jpg" />}
+                
               </IconButton>
             </Tooltip>
             <Menu
@@ -243,7 +242,7 @@ function Header(user,mappage) {
             </Menu>
             
           </Box>
-          {user.user.user !== "" ? <Typography textAlign="center">{user.user.user}</Typography> : null}
+          
         </Toolbar>
       </Container>
     </AppBar>

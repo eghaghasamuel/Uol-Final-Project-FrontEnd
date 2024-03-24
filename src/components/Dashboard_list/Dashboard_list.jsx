@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css"
 import { Typography, Button, Card, CardMedia, CardContent, CardActions } from "@mui/material";
 import { useGlobalContext } from "../../GlobalContext";
 import { useNavigate } from 'react-router-dom';
+
 
 
 const Dashboard_List = ({ iti }) => {
@@ -10,7 +11,7 @@ const Dashboard_List = ({ iti }) => {
     const {coordinates, setCoordinates} = useGlobalContext()
     const {listItinerary,setlistItinerary} = useGlobalContext()
     const {title, setTitle} = useGlobalContext()
-
+    
     
 
     const navigate = useNavigate()
@@ -19,30 +20,32 @@ const Dashboard_List = ({ iti }) => {
         
         setListItineraryMap(iti.listIti)
         
-        if(listItinerary[0] === "GIORNO"){
-            let list = []
-            let count =0
-            for (const [key, value] of Object.entries(iti.listIti)) {
-                list.push(key)
-                if(count === 1){
-                    setCoordinates({lat: Number(value[0].latitude), lng:  Number(value[0].longitide)})
-                    console.log("SSSSS ",coordinates)
+
+        let list = []
+        let count =0
+        for (const [key, value] of Object.entries(iti.listIti)) {
+            list.push(key)
+            try{
+                var coords={lat: Number(value[0][0].latitude), lng: Number(value[0][0].longitude)}
+                setCoordinates(coords)
+            }catch(err){
+                console.log("No Coordinates")
                 }
-              }
-              setlistItinerary(list);
+            
             }
+            setlistItinerary(list);
+            
 
         
         setTitle(iti.title)
         navigate('/plan');
-        console.log("THIS IS MAP",listItineraryMap)
-        console.log("THIS IS LIST",listItinerary)
+
     }
 
 
 
     return (
-        <Card elevation={5} style={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+        <Card elevation={5} style={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, marginTop: "5%" }}>
             <CardMedia
                 style={{ height: 100, width: 130 }}
                 image={'https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=1835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}
@@ -57,22 +60,7 @@ const Dashboard_List = ({ iti }) => {
                     Go to plan
                 </Button>
             <CardActions>
-
-                {/* <Button size="small" color="primary" onClick={populateListRedirect}>
-        Go to plan
-        </Button>
-        <Button size="small" color="primary" onClick={deleteItinerary}>
-        DELETE
-        </Button>
-        {!visible ?
-            <Button size="small" color="primary" onClick={visibleTitle}>UPDATE TITLE
-            </Button>
-            : <TextField 
-            
-            onKeyDown={updateTitle}
-            autoFocus />
-        }
-         */}
+           
 
             </CardActions>
         </Card>

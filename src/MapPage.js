@@ -12,8 +12,6 @@ import { redirect } from "react-router-dom";
 
 const MapPage = (user) => {
     const [places, setPlaces] = useState([])
-    const {listItinerary,setlistItinerary} = useGlobalContext();
-    const {listItineraryMap,setlistItineraryMap} = useGlobalContext();
     
     const {coordinates, setCoordinates} = useGlobalContext();
     const [bounds, setBounds] =useState({});
@@ -73,7 +71,6 @@ const MapPage = (user) => {
                         rating={rating}
                         setRating={setRating}
                         list={false}
-                        listItinerary={listItinerary}
                     />
                 </Grid>
                 <Grid item xs={12} md={8}>
@@ -83,7 +80,6 @@ const MapPage = (user) => {
                         coordinates={coordinates}
                         places={places}
                         setChildClicked = {setChildClicked}
-                        // listItineraryMap={listItineraryMap}
                     />
                 </Grid>
             </Grid>

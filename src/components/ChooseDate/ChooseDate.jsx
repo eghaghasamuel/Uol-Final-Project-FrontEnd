@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { Button,TextField } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -10,36 +10,32 @@ import { useNavigate } from 'react-router-dom';
 import Trips from '../Trips/Trips';
 import Box from "@mui/material/Box";
 import Header from "../../components/Header/Header";
-import Carousel from 'react-bootstrap/Carousel';
-import axios from 'axios';
-import './style.css'
+import './style.css';
 
 
-const ChooseDate = (user,userid) => {
+const ChooseDate = (user, userid) => {
 
 
-  
+
   const { autocomplete, setAutocomplete } = useGlobalContext();
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, '0');
-  let mm = String(today.getMonth() + 1).padStart(2, '0'); 
+  let mm = String(today.getMonth() + 1).padStart(2, '0');
   let yyyy = today.getFullYear();
 
   today = dd + '-' + mm + '-' + yyyy;
-  
+
   const navigate = useNavigate();
-  const {trip, setTrip} = useGlobalContext();
-  const {listItinerary,setlistItinerary} = useGlobalContext();
-  const {coordinates, setCoordinates} = useGlobalContext();
-  const {title, setTitle} = useGlobalContext();
+  const { trip, setTrip } = useGlobalContext();
+  const { listItinerary, setlistItinerary } = useGlobalContext();
+  const { coordinates, setCoordinates } = useGlobalContext();
+  const { title, setTitle } = useGlobalContext();
   const [start, setStart] = useState(dayjs(today));
   const [end, setEnd] = useState(dayjs(today));
-  
-  
-  
-  const {onLoad} = useGlobalContext()
-  
-  const handleSubmit = async (event) =>{
+
+  const { onLoad } = useGlobalContext()
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     setTitle(formData.get("title"))
@@ -58,69 +54,73 @@ const ChooseDate = (user,userid) => {
 
     return range;
   };
-  
+
   const onPlaceChanged = () => {
     const lat = autocomplete.getPlace().geometry.location.lat();
     const lng = autocomplete.getPlace().geometry.location.lng();
-    
+
     setCoordinates({ lat, lng });
-};
+  };
 
   return (
-      <div
-        style={{
-          top: 0,
-          left: 0,
-        }}
-      >
-        <Header user={user} mappage={false}/> 
-        <Box component="form" onSubmit={(handleSubmit)} noValidate sx={{ mt: 1 }}>
+    <div
+      style={{
+        top: 0,
+        left: 0,
+      }}
+    >
+      <Header user={user} mappage={false} />
+      <Box component="form" onSubmit={(handleSubmit)} noValidate sx={{ mt: 1 }} style={{ width: "60%", marginLeft: "20%", marginRight: "20%" }}>
         <div style={{ padding: '20px', backgroundColor: 'white', borderRadius: '8px', textAlign: 'center' }}>
-        <div className="title">
-              <TextField name='title' placeholder="Enter Title" required/>
-        </div>
-        <br /><br />
-        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} required>
+
+          <div className="title">
+            <Typography variant="h5">Title</Typography>
+            <TextField name='title' placeholder="Enter Title" required />
+          </div>
+          <br /><br />
+          <Typography variant="h5">Destination</Typography>
+          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} required>
             <div className="title">
               <TextField placeholder="Enter Destination" />
             </div>
           </Autocomplete>
           <br /><br />
 
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-     
-     <DatePicker
-     format='DD/MM/YYYY'
-       label="Start Date"
-       value={start}
-       onChange={(newValue) => {setStart(newValue)}}
-     />
-     <DatePicker
-       format='DD/MM/YYYY'
-       label="End Date"
-       value={end}
-       onChange={(newValue) => {setEnd(newValue)}}
-     />
-      </LocalizationProvider>
-      <br /> <br />
-      <Button type="submit"  variant="contained" color="primary">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+
+            <DatePicker
+              format='DD/MM/YYYY'
+              label="Start Date"
+              value={start}
+              onChange={(newValue) => { setStart(newValue) }}
+            />
+            <DatePicker
+              format='DD/MM/YYYY'
+              label="End Date"
+              value={end}
+              onChange={(newValue) => { setEnd(newValue) }}
+            />
+          </LocalizationProvider>
+          <br /> <br />
+          <Button type="submit" variant="contained" color="primary">
             Go to Plan
           </Button>
-          
-          
+
+
         </div>
+        {trip?.map((i) => (
+          <Trips place={i} userid={userid} />
+        ))}
+      </Box>
 
-        </Box>
-      {trip?.map((i)=>(
-        <Trips place={i} userid={userid}/>
-      ))}
-      </div>
-      
-    
-    )
 
-    
-  
+    </div>
+
+
+  )
+
+
+
 };
 
 export default ChooseDate;

@@ -7,7 +7,7 @@ export default makeStyles((theme) => ({
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'rgba(0, 0, 0, 0.5)', // Semi-transparent black background for the shadow effect
+    background: 'rgba(0, 0, 0, 0.5)', 
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -17,8 +17,8 @@ export default makeStyles((theme) => ({
     background: 'white',
     padding: theme.spacing(2),
     width: "60%",
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)', // Shadow effect for the big div
-     // Ensure the big div appears above the overlay
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
+     
   },
   main_div: {
     textAlign:"center"

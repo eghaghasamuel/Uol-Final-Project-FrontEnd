@@ -4,6 +4,7 @@ import "./style.css"
 import Itinerary from "../Itinerary/Itinerary";
 import { useGlobalContext } from '../../GlobalContext';
 import axios from "axios";
+import dayjs from 'dayjs';
 
 function getRandomColor() {
   const letters = '0123456789ABCDEF';
@@ -15,7 +16,7 @@ function getRandomColor() {
 }
 
 
-const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating,listItinerary}) => { 
+const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, setRating}) => { 
   
     const [elRefs, setElRefs] = useState([]);
     const [addPlace, setAddPlace] = useState([])
@@ -25,13 +26,20 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
     const {user_global} = useGlobalContext()
     const [clicked, setClicked] = useState(false)
     const { listItineraryMap, setListItineraryMap } = useGlobalContext(); 
+    const { listItinerary, setlistItinerary } = useGlobalContext(); 
 
     
     const handleToggle = () => {
+        
         setElementVisibility(!isElementVisible);
     };
      
-    
+    const addDate = () => {
+      
+      const getDate = dayjs(listItinerary[listItinerary.length - 1 ], 'DD-MM-YYYY').add(1,"day").format('DD-MM-YYYY')
+
+      setlistItinerary(list => [...list,getDate])
+  };
 
     useEffect(() =>{
       for(var i=0; i<listItinerary.length;i++){
@@ -63,7 +71,10 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
           listTrip: listItineraryMap,
           user_l: user_global
         });
-  
+        window.open(
+          `/`,
+          "_self"
+        );
         //console.log("Trip created successfully:", response.data);
         // You can redirect or perform other actions based on the response
       } catch (error) {
@@ -101,9 +112,15 @@ const Itinerary_List = ({places, childClicked, isLoading,type,setType, rating, s
                 />
                 )
                 )
-            
+  
                 }
-                
+            <Button
+            onClick={addDate}
+            variant="contained"
+            style={{marginLeft:"40%", marginRight:"40%"}}
+          >
+            Add Date
+          </Button>
         
             
         </div>

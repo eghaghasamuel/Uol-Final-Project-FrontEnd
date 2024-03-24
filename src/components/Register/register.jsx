@@ -28,7 +28,7 @@ const handleSubmit = async (event) => {
         password: formData.get("password"),
       },
       {
-        withCredentials: true, // Include this option
+        withCredentials: true, 
         headers: {
           "Content-Type": "application/json",
         },
@@ -39,10 +39,9 @@ const handleSubmit = async (event) => {
       "_self"
     );
     console.log("Registration successful:", response.data);
-    // Redirect or handle success accordingly
+
   } catch (error) {
     console.error("Registration failed:", error.message);
-    // Handle errors, display an error message to the user, etc.
   }
 };
 

@@ -30,13 +30,11 @@ const Trips = ({place, userid}) => {
               title: place.title
             },
           });
-          console.log(response)
+          
           setVisible(false)
           window.location.reload();
-          // Handle the response data
         } catch (error) {
           console.error('Error fetching trips:', error.message);
-          // Handle errors, display an error message to the user, etc.
         }}
       };
     const deleteItinerary = async () =>{
@@ -50,29 +48,34 @@ const Trips = ({place, userid}) => {
               },
             });
             window.location.reload()
-            // Handle the response data
           } catch (error) {
             console.error('Error fetching trips:', error.message);
-            // Handle errors, display an error message to the user, etc.
           }
         };
     const populateListRedirect = () =>{
         
         setListItineraryMap(place.listTrip)
-        console.log("from tripssss", listItineraryMap)
         
-        if(listItinerary[0] === "GIORNO"){
-            let list = []
-            let count =0
-            for (const [key, value] of Object.entries(place.listTrip)) {
-                list.push(key)
-                if(count === 1){
-                    setCoordinates({lat: value[0].latitude, lng:  value[0].longitide})
-                    console.log(coordinates)
-                }
+        
+        
+        let list = []
+        let count =0
+        for (const [key, value] of Object.entries(place.listTrip)) {
+          count = count+1
+            list.push(key)
+            if(count == 1){
+              try{
+                setCoordinates({lat: Number(value[0][0].latitude), lng: Number(value[0][0].longitude)})
+              }catch(err){
+                console.log("No Coordinates")
               }
-              setlistItinerary(list);
+              
             }
+            
+            
+          }
+          setlistItinerary(list);
+            
 
         
         setTitle(place.title)
@@ -85,18 +88,13 @@ const Trips = ({place, userid}) => {
         <Card elevation={3} style={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
         <CardMedia
         style={{height:100, width:130}}
-        image={'https://images.unsplash.com/photo-1509043759401-136742328bb3?q=80&w=1835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} 
+        image={'https://img.freepik.com/free-vector/flying-aircraft-icon-isolated-vector_24911-114304.jpg'} 
         title={place.title}
         />
         <CardContent >
         
             <Typography gutterBottom variant="h5">{place.title}</Typography>
-{/*         
-            {mytrip?.map((key,value)=>{
-                <div>{value[0].name}</div>
-            })
 
-            } */}
         </CardContent>
 
         <CardActions>

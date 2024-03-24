@@ -20,7 +20,6 @@ const handleSubmit = async (event) => {
     const formData = new FormData(event.currentTarget);
     
     try {
-      // Send POST request to /register
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/auth/login`,
         {
@@ -29,7 +28,7 @@ const handleSubmit = async (event) => {
           
         },
         {
-          withCredentials: true, // Include this option
+          withCredentials: true, 
           headers: {
             "Content-Type": "application/json",
           },
@@ -40,7 +39,6 @@ const handleSubmit = async (event) => {
       "_self"
     );
     } catch (error) {
-      // Handle errors (e.g., display an error message)
       console.error("Registration failed:", error.message);
     }
   };

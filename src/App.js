@@ -40,6 +40,7 @@ const App = () => {
 
 	}, []);
    useEffect(() => {
+
     const fetchData = async () => {
       try {
       

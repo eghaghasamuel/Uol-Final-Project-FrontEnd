@@ -36,12 +36,19 @@ const ChooseDate = (user, userid) => {
   const { onLoad } = useGlobalContext()
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    setTitle(formData.get("title"))
-    setlistItinerary(getDatesInRange(start, end))
-    navigate('/plan');
-
+    
+    if(!start.isValid() || !end.isValid()){
+      navigate('/')
+      alert("Write the start date and end date")
+    }else{
+      event.preventDefault();
+      const formData = new FormData(event.currentTarget);
+      setTitle(formData.get("title"))
+      setlistItinerary(getDatesInRange(start, end))
+      navigate('/plan');
+  
+    }
+   
   }
   const getDatesInRange = (start, end) => {
     const range = [];
